@@ -19,24 +19,22 @@ import Sheet from "./components/pages/Sheet/Sheet";
 import Aform from "./components/Aform/Aform";
 
 function App() {
-  const token = localStorage.getItem("token");
-  const email = localStorage.getItem("email");
-  const role = localStorage.getItem("role");
+  const obString = localStorage.getItem("userData");
+  const obj = JSON.parse(obString);
   const [tokenState, setTokenState] = useState({
-    token: token || null,
-    email: email || null,
+    token: obj?.token || null,
+    email: obj?.email || null,
+    role: obj?.role || null
   });
-
   return (
     <div>
       <Navbar tokenState={tokenState} />
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/login" element={tokenState.token ? <Quizes /> : <Login />} /> */}
+        <Route path="/login" element={tokenState.token ? <Quizes /> : <Login setTokenState={setTokenState}/>} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/quizes" element={<Quizes />} />
+        <Route path="/quizes" element={tokenState.token ? <Quizes tokenState={tokenState} />: <Login/> } />
         <Route path="/Announcements" element={<Announcements />} />
         <Route path="/Questions" element={<Question />} />
         <Route path="/Test" element={<Test />} />

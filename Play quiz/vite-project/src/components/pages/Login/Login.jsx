@@ -4,11 +4,11 @@ import React from "react";
 import Form from "../../login/Form.jsx";
 
 import "./Login.css";
-export default function Login() {
+export default function Login({setTokenState}) {
   return (
     <div className="loginPage">
       <div className="loginDivs">
-        <Form />
+        <Form setTokenState={setTokenState} />
       </div>
       <div className="loginDivs">
         <img

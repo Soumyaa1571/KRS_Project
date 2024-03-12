@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quizes.css";
 
-const Quizes = () => {
+const Quizes = ({tokenState}) => {
+  console.log(tokenState)
   return (
     // <div>
     //   <h1>Create new quiz</h1>
@@ -14,14 +15,16 @@ const Quizes = () => {
     // <div className="box">QUIZES</div>
 
     <div className="main">
-      <div className="card">
+      {
+        tokenState?.role == 'Member'?(<div className="card">
         <h2>Create a quiz</h2>
         <div className="actions">
           <Link to={"/Questions"}>
             <button className="btn">Lets Proceed</button>
           </Link>
         </div>
-      </div>
+      </div>):<></>
+      }
       <div className="card">
         <h2>Attempt Quiz now</h2>
         <div className="actions">
