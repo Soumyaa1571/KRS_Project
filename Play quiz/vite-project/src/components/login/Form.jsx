@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Form.css";
 
-export default function Form({setTokenState}) {
+export default function Form({ setTokenState }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const changeEmail = (e) => {
@@ -27,9 +27,9 @@ export default function Form({setTokenState}) {
         // Retrieve user data from the response
         const userData = await response.json();
         setTokenState({
-          token:userData.token,
+          token: userData.token,
           role: userData.role,
-          email:userData.email
+          email: userData.email,
         });
         // Save user data in local storage
         localStorage.setItem("userData", JSON.stringify(userData));

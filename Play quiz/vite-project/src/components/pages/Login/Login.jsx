@@ -4,7 +4,7 @@ import React from "react";
 import Form from "../../login/Form.jsx";
 
 import "./Login.css";
-export default function Login({setTokenState}) {
+export default function Login({ setTokenState }) {
   return (
     <div className="loginPage">
       <div className="loginDivs">

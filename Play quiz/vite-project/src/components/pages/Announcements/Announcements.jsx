@@ -2,17 +2,22 @@ import React from "react";
 import "./Announcements.css";
 import { Link } from "react-router-dom";
 
-const Announcements = () => {
+const Announcements = ({ tokenState }) => {
+  console.log(tokenState);
   return (
     <div className="main">
-      <div className="card">
-        <h4>Make an Announcement</h4>
-        <div className="actions">
-          <Link to={"/Sheet"}>
-            <button className="btn">Lets Proceed</button>
-          </Link>
+      {tokenState?.role == "Member" ? (
+        <div className="card">
+          <h4>Make an Announcement</h4>
+          <div className="actions">
+            <Link to={"/Sheet"}>
+              <button className="btn">Lets Proceed</button>
+            </Link>
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
       <div className="card">
         <h4>View the Announcements</h4>
         <div className="actions">

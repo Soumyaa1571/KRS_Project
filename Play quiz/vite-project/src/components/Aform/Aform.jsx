@@ -26,6 +26,7 @@ function Aform() {
   }, []);
   return (
     <div className="Bformcontainer">
+      <div className="anc">Announcements</div>
       <div className="row justify-content-center mt-5">
         {loading ? (
           <h1>Loading...</h1>

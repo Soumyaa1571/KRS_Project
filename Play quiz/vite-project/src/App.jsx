@@ -24,7 +24,7 @@ function App() {
   const [tokenState, setTokenState] = useState({
     token: obj?.token || null,
     email: obj?.email || null,
-    role: obj?.role || null
+    role: obj?.role || null,
   });
   return (
     <div>
@@ -32,10 +32,28 @@ function App() {
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={tokenState.token ? <Quizes /> : <Login setTokenState={setTokenState}/>} />
+        {/* <Route path="/login" element={tokenState.token ? <Quizes /> : <Login setTokenState={setTokenState}/>} /> */}
+        <Route
+          path="/login"
+          element={<Login setTokenState={setTokenState} />}
+        />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/quizes" element={tokenState.token ? <Quizes tokenState={tokenState} />: <Login/> } />
-        <Route path="/Announcements" element={<Announcements />} />
+        <Route
+          path="/quizes"
+          element={
+            tokenState.token ? <Quizes tokenState={tokenState} /> : <Login />
+          }
+        />
+        <Route
+          path="/Announcements"
+          element={
+            tokenState.token ? (
+              <Announcements tokenState={tokenState} />
+            ) : (
+              <Login />
+            )
+          }
+        />
         <Route path="/Questions" element={<Question />} />
         <Route path="/Test" element={<Test />} />
         <Route path="/Test2" element={<Test2 />} />

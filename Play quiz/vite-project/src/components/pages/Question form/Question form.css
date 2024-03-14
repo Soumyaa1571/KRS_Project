@@ -15,6 +15,7 @@
 
 .forms{
   padding-top:20px;
+  background-color:aqua;
 }
 .inputSignUp{
   display:flex;

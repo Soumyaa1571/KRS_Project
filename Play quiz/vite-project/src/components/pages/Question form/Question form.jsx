@@ -175,7 +175,7 @@ export default function Question() {
       console.table(testData);
 
       // Save the response to the server or state as needed
-      const res = await fetch("http://localhost:5000/questions", {
+      const res = await fetch("http://localhost:5000/api/questions", {
         method: "POST",
         body: JSON.stringify(testData),
         headers: {

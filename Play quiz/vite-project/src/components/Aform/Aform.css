@@ -1,5 +1,5 @@
 h1{
-    color:black;
+    color:white;
     /* font-family: 'Times New Roman', Times, serif;
      */
     font-size: 5rem;
@@ -12,7 +12,7 @@ h1{
     }
     .box{
         /* text-align: center; */
-        margin-left: 4rem;
+        margin-left: 25rem;
         color:cyan;
         font-size: 2rem;
     }
@@ -37,4 +37,14 @@ h1{
     .col-md-7{
         color: aliceblue;
         font-size: 2rem;
+        padding-left:2rem;
+        padding-top:2rem;
+        padding-right:2rem;
+    }
+    .anc
+    {
+    font-size: 5rem;
+    color: bisque;
+    text-align: center;
+    padding-top:1rem;
     }
