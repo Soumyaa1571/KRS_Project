@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Test = require("../model/test");
 const Announcement = require("../model/Announcement");
+const Feedback = require("../model/Feedback");
+const Result = require("../model/Result");
 
 // Require User model and connect to database
 require("../db/conn");
@@ -189,6 +191,67 @@ router.post("/addRole", async (req, res) => {
     return res
       .status(500)
       .send({ code: 500, message: "Internal server error" });
+  }
+});
+router.post("/feedback", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(422).json({ error: "Please fill the field properlyy" });
+  }
+
+  try {
+    const feedbackExist = await Feedback.findOne({ message: message });
+    if (feedbackExist) {
+      return res.status(422).json({ error: "Feedback already present " });
+      // } else if (password != cpassword) {
+      //   return res.status(422).json({ error: " password are not matching " });
+    } else {
+      const feedback = new Feedback({
+        name,
+        email,
+        message,
+      });
+      await feedback.save();
+
+      res.status(201).json({ message: "feedback submitted successfuly " });
+      console.log("hello");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/getfeedback", async (req, res) => {
+  try {
+    const feedback = await Feedback.find({});
+    console.log("Fetched  feedback:", feedback);
+    res.json({ feedback });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Result section
+
+router.post("/result", async (req, res) => {
+  const { name, email, marks } = req.body;
+  try {
+    const resultExist = await Result.findOne({ message: message });
+    if (resultExist) {
+      return res.status(422).json({ error: "Test already attempted" });
+    } else {
+      const result = new Result({
+        name,
+        email,
+        marks,
+      });
+      await result.save();
+      res.status(201).json({ message: " result stored successfully" });
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 

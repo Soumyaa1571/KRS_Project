@@ -39,6 +39,11 @@ width:90%;
 
 
 }
+.option:selected {
+    background-color: pink;
+
+
+}
 .button-container{
     display:flex;
     justify-content: flex-start;

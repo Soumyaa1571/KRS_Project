@@ -6,3 +6,8 @@
 margin-bottom: 2rem;
 
 }
+.option.selected {
+  background-color: #f0f0f0; /* Change the background color to your desired color */
+  color: #333; /* Change the text color to ensure readability */
+  /* Add any other styling you want for the selected option */
+}

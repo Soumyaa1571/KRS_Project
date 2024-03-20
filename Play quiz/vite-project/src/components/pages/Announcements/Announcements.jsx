@@ -26,6 +26,18 @@ const Announcements = ({ tokenState }) => {
           </Link>
         </div>
       </div>
+      {tokenState?.role == "Member" ? (
+        <div className="card">
+          <h4>View Feedbacks</h4>
+          <div className="actions">
+            <Link to={"/getfeedback"}>
+              <button className="btn">Click</button>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -17,6 +17,7 @@ import Bform from "./components/Bform/Bform";
 import Result from "./components/pages/Result/Result";
 import Sheet from "./components/pages/Sheet/Sheet";
 import Aform from "./components/Aform/Aform";
+import Fform from "./components/Fform/Fform";
 
 function App() {
   const obString = localStorage.getItem("userData");
@@ -63,6 +64,7 @@ function App() {
         <Route path="/result" element={<Result />} />
         <Route path="/Sheet" element={<Sheet />} />
         <Route path="/getSheet" element={<Aform />} />
+        <Route path="/getfeedback" element={<Fform />} />
       </Routes>
     </div>
   );
