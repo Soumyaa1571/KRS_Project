@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import "./Bform.css";
 
-function Bform() {
+function Bform({tokenState}) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -10,6 +10,8 @@ function Bform() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [result, setResult] = useState(null);
   const [totalMarks, setTotalMarks] = useState(0);
+
+  let isAttempted = false;
 
   const handleOptionClick = (questionId, selectedOption) => {
     setSelectedOptions({ ...selectedOptions, [questionId]: selectedOption });
@@ -22,11 +24,27 @@ function Bform() {
   const handlePreviousClick = () => {
     setCurrentQuestionIndex((prevIndex) => Math.max(0, prevIndex - 1));
   };
+  const getAttemp = async () => {
+    const response =  await axios.post('http://localhost:5000/api/isAttempted', {
+      email: tokenState.email
+    })
+    if(response) {
+      return response.data.isAttempted;
+    }
+    return false;
+  }
 
-  const handleFinishClick = () => {
+  const handleFinishClick = async () => {
     // Calculate the result based on user responses
     const userResult = calculateResult();
     setResult(userResult);
+    if(tokenState) {
+
+      const response = await axios.post('http://localhost:5000/api/result', {
+        email: tokenState.email,
+        marks: userResult
+      });
+    }
   };
 
   const calculateResult = () => {
@@ -45,6 +63,7 @@ function Bform() {
     return score;
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,6 +72,8 @@ function Bform() {
         setQuestions(response.data.test);
         setTotalMarks(response.data.test.length); // Set total marks
         setLoading(false);
+
+       isAttempted = await getAttemp();
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(true);
@@ -65,7 +86,8 @@ function Bform() {
 
   return (
     <Fragment>
-      <div className="questions">
+      { isAttempted? 
+      (<div className="questions">
         {loading ? (
           <h1>Loading...</h1>
         ) : error ? (
@@ -175,7 +197,12 @@ function Bform() {
         ) : (
           <h1>No questions available</h1>
         )}
-      </div>
+      </div>) :(
+
+        <div>
+          The test has been attempted
+        </div>
+      )} 
     </Fragment>
   );
 }
