@@ -60,7 +60,7 @@ function App() {
         <Route path="/Test2" element={<Test2 />} />
         <Route path="/Test3" element={<Test3 />} />
         <Route path="/Finish" element={<Finish />} />
-        <Route path="/exam" element={<Bform />} />
+        <Route path="/exam" element={<Bform tokenState={tokenState}/>} />
         <Route path="/result" element={<Result />} />
         <Route path="/Sheet" element={<Sheet />} />
         <Route path="/getSheet" element={<Aform />} />

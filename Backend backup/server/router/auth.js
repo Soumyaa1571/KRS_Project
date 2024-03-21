@@ -3,9 +3,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Test = require("../model/test");
-const Announcement = require("../model/Announcement");
-const Feedback = require("../model/Feedback");
-const Result = require("../model/Result");
+const Announcement = require("../model/announcement");
+const Feedback = require("../model/feedback");
+const Result = require("../model/result");
 
 // Require User model and connect to database
 require("../db/conn");
@@ -235,15 +235,24 @@ router.get("/getfeedback", async (req, res) => {
 
 // Result section
 
-router.post("/result", async (req, res) => {
-  const { name, email, marks } = req.body;
+router.post('/isAttempted', async(req, res)=> {
+  const {email} = req.body;
   try {
-    const resultExist = await Result.findOne({ message: message });
+    const resultExist = await Result.findOne({ email: email });
+    res.json({isAttempted: !!resultExist})
+  }catch(err) {
+    console.log(err)
+  }
+})
+
+router.post("/result", async (req, res) => {
+  const { email, marks } = req.body;
+  try {
+    const resultExist = await Result.findOne({ email: email });
     if (resultExist) {
       return res.status(422).json({ error: "Test already attempted" });
     } else {
       const result = new Result({
-        name,
         email,
         marks,
       });
@@ -251,7 +260,7 @@ router.post("/result", async (req, res) => {
       res.status(201).json({ message: " result stored successfully" });
     }
   } catch (err) {
-    console.log(err);
+    res.status(500).json({message: 'Error occured'})
   }
 });
 
